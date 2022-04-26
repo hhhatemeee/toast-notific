@@ -1,3 +1,7 @@
+/**
+ * Helper function for generate unique id
+ * @returns {string} - unique id
+ */
 export const uuid = (): string => {
   let dt = new Date().getTime();
 

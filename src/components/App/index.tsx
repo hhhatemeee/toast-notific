@@ -1,18 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
-import { ToastPortal } from '../../components';
-import { Mode } from '../ToastPortal';
+import { ToastPortal } from '../ToastModule';
+import { Mode, propsRef } from '../ToastModule/types';
 
 import styles from './styles.module.css';
-
-interface IToastMessage {
-  mode: Mode;
-  message: string;
-}
-
-interface propsRef {
-  addMessage: (toast: IToastMessage) => void;
-}
 
 export const App: React.FC = () => {
   const [text, setText] = useState<string>('');
@@ -22,7 +13,7 @@ export const App: React.FC = () => {
 
   const onAddToast = (): void => {
     toastRef.current?.addMessage({ mode, message: text });
-  }
+  };
 
   return (
     <div className={styles.main}>

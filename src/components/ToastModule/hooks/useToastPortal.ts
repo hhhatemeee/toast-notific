@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { uuid } from "../shared";
+import { UseToastPortal } from "../types";
 
-interface UseToastPortal {
-  loaded: boolean;
-  portalId: string;
-}
-
+/**
+ * Custom hook for mounting div element in document upper 'root' in React
+ * @returns {object} 
+ * @property {boolean} loaded - Flag indicating whether the div element was mounted
+ * @property {string} portalId - unique identifier for the div element 
+ */
 export function useToastPortal(): UseToastPortal {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [portalId] = useState<string>(`toast-portal-${uuid()}`);
