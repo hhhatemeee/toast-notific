@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import Logo from "../shared/Logo/Logo";
 
 import { IToastComponent } from "../types";
 
@@ -15,16 +16,26 @@ export const Toast: React.FC<IToastComponent> = ({
   id,
   mode,
   onClose,
-  message
+  message,
+  autoCloseTime
 }) => {
   const classes = useMemo(() => [styles.toast, styles[mode]].join(' '), [mode]);
 
+  const animateDuration = autoCloseTime
+    ? { animationDuration: autoCloseTime / 1000 + 's' }
+    : { animation: 'none', width: '100%' }
+
   const onCloseHandler = (): void => onClose(id);
 
+
   return <div className={classes} onClick={onCloseHandler}>
-    <div className={styles.message}>
-      {message}
+    <div className={styles.container}>
+      <Logo name={mode} />
+      <div className={styles.message}>
+        {message}
+      </div>
     </div>
+    <div className={styles.row} style={animateDuration} />
   </div>;
 };
 

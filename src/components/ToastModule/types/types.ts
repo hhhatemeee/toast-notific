@@ -29,6 +29,7 @@ export type ToastPortalHandle = {
 // Advanced interface for a separate Toast Notification component
 export interface IToastComponent extends IToast {
   onClose: (id: string) => void;
+  autoCloseTime?: number;
 };
 
 // Interface for creating a new toast
@@ -45,7 +46,7 @@ export interface propsRef {
 //Interface for custom hook UseToastAutoClose
 export interface IUseToastAutoCloseArgs {
   autoClose?: boolean;
-  autoCloseTime: number;
+  autoCloseTime?: number;
   setToasts: React.Dispatch<React.SetStateAction<IToast[]>>;
   toasts: IToast[];
 }

@@ -23,7 +23,7 @@ import useToastAutoClose from '../hooks/useToastAutoClose';
 export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
   {
     autoClose,
-    autoCloseTime = 3000
+    autoCloseTime = autoClose ? 3000 : undefined
   }: IToastPortal, ref) => {
   /**
    * Toasts state
@@ -65,6 +65,7 @@ export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
               message={toast.message}
               mode={toast.mode}
               onClose={removeToast}
+              autoCloseTime={autoCloseTime}
             />
           ))
         }
