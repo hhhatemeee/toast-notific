@@ -15,13 +15,16 @@ const useToastAutoClose = ({
   toasts,
 }: IUseToastAutoCloseArgs) => {
   useEffect(() => {
-    if (toasts.length && autoClose) {
-      setTimeout(() => {
+    // Use var to access a variable outside the condition
+    if (autoClose && toasts.length) {
+      var _timeoutId = setTimeout(() => {
         setToasts((prev: IToast[]) => (
           prev.filter((toast: IToast) => toast.id !== prev.at(0)?.id))
         )
       }, autoCloseTime);
     }
+
+    return () => clearTimeout(_timeoutId);
   }, [toasts, autoCloseTime]);
 };
 
