@@ -3,10 +3,8 @@ import { uuid } from "../shared";
 import { UseToastPortal } from "../types";
 
 /**
- * Custom hook for mounting div element in document upper 'root' in React
- * @returns {object} 
- * @property {boolean} loaded - Flag indicating whether the div element was mounted
- * @property {string} portalId - unique identifier for the div element 
+ * Custom hook for creating a portal fot toasts
+ * @type {UseToastPortal}
  */
 export function useToastPortal(): UseToastPortal {
   const [loaded, setLoaded] = useState<boolean>(false);

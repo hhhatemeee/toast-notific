@@ -2,8 +2,8 @@
   width: 300px;
   min-height: 65px;
   position: relative;
-  transform: translateX(400px);
-  visibility: hidden;
+  /* transform: translateX(0px); */
+  /* visibility: hidden; */
 
 
   opacity: 1;
@@ -16,7 +16,8 @@
     0 2px 15px 0 rgb(0 0 0 / 5%);
 
   transition: 0.2s;
-  animation: fadeIn 3s;
+  animation: fadeIn .4s;
+
 }
 
 .toast:hover {
@@ -30,6 +31,16 @@
   align-items: center;
   justify-content: start;
   flex-direction: row;
+}
+
+.container>svg {
+  width: 35px;
+  height: 35px;
+  margin-right: 0.4em;
+}
+
+.message {
+  user-select: none;
 }
 
 .success>.row,
@@ -68,32 +79,20 @@
   background-color: #8398bd;
 }
 
-@keyframes fadeIn {
+.fadeClose {
+  animation: fadeClose .4s forwards;
+}
+
+
+@keyframes fadeClose {
   0% {
-    opacity: 0;
-    transform: translateX(400px);
-    visibility: initial;
-  }
-
-  8% {
-    opacity: 1;
-    transform: translateX(-20px);
-  }
-
-  10% {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-
-  88% {
     opacity: 1;
     transform: translateX(0);
   }
 
-  90% {
-    opacity: 1;
+  50% {
+    opacity: .7;
     transform: translateX(-20px);
-    visibility: initial;
   }
 
   100% {
@@ -101,6 +100,29 @@
     transform: translateX(400px);
   }
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+
+  50% {
+    opacity: .7;
+    transform: translateX(-20px);
+  }
+
+  75% {
+    opacity: .85;
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
 
 @keyframes runRow {
   0% {

@@ -61,7 +61,7 @@ export const App: React.FC = () => {
           <button >Submit</button>
         </form>
       </div>
-      <ToastPortal ref={toastRef} autoClose={autoClose} />
+      <ToastPortal ref={toastRef} autoClose={autoClose} autoCloseTime={7000} />
     </div>
   );
 };

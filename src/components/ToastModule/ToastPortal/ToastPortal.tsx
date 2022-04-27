@@ -1,20 +1,26 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { useToastPortal } from '../hooks';
 import { uuid } from '../shared';
 import { IToast, IToastPortal, ToastPortalHandle } from '../types';
+import useToastAutoClose from '../hooks/useToastAutoClose';
 import { Toast } from '../Toast';
 
 import styles from './styles.module.css';
-import useToastAutoClose from '../hooks/useToastAutoClose';
+
+/**
+ * @typedef {import('../types').ToastPortalHandle} ToastPortalHandle
+ * @typedef {import('../types').IToastPortal} IToastPortal
+ * @typedef {import('../types').IToast} IToast[]
+ */
 
 /**
  * The component uses Portal React and mounts toasts in the div,
  * which is the first in the body tree.
  * The component is wrapped in forwardRef so that you can pass the link to your parent
- * @typedef {import('../types').ToastPortalHandle} ToastPortalHandle
- * @typedef {import('../types').IToastPortal} IToastPortal
+ * @type {ToastPortalHandle}
+ * @type {IToastPortal}
  * @param {boolean} autoClose - Whether to close the toast yourself
  * @param {number} autoCloseTime - After how long to close the notification
  * forwardRef manual: https://learn-reactjs.ru/core/forwarding-refs
@@ -23,11 +29,11 @@ import useToastAutoClose from '../hooks/useToastAutoClose';
 export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
   {
     autoClose,
-    autoCloseTime = autoClose ? 3000 : undefined
+    autoCloseTime = 3000
   }: IToastPortal, ref) => {
   /**
-   * Toasts state
-   * @typedef {import('../types').IToast} IToast[]
+   * State for managing all toasts
+   * @type {IToast[]}
    */
   const [toasts, setToasts] = useState<IToast[]>([]);
   // Use the custom hook for get the portalId and loaded 
@@ -37,19 +43,16 @@ export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
   useToastAutoClose({ autoClose, autoCloseTime, setToasts, toasts });
 
   /**
-   * Deleting a toast by id
+   * Function for removing a toast from toasts state by its id
    * @param {string} id - id of the toast to delete 
    */
   const removeToast = (id: string): void => {
     setToasts(toasts.filter((toast: IToast) => toast.id !== id));
   }
 
-  /**
-   * Used for accessing from the parent component
-   * @typedef {import('../types').IToast} IToast[]
-   */
+  // Passing addMessage method to parent. There we don't need toasts' id, that's why we use Omit
   useImperativeHandle(ref, () => ({
-    addMessage(toast: IToast): void {
+    addMessage(toast: Omit<IToast, 'id'>): void {
       setToasts([...toasts, { ...toast, id: uuid() }]);
     },
   }))
@@ -66,6 +69,7 @@ export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
               mode={toast.mode}
               onClose={removeToast}
               autoCloseTime={autoCloseTime}
+              autoClose={autoClose}
             />
           ))
         }
