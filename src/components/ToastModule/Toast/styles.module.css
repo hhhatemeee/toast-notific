@@ -1,10 +1,10 @@
 .toast {
-  width: 350px;
-  display: flex;
-  min-height: 75px;
+  width: 300px;
+  min-height: 65px;
   position: relative;
-  align-items: center;
-  justify-content: center;
+  /* transform: translateX(0px); */
+  /* visibility: hidden; */
+
 
   opacity: 1;
   padding: 15px;
@@ -12,10 +12,12 @@
   cursor: pointer;
   border-radius: 5px;
   box-sizing: border-box;
-  box-shadow: 0px 0px 2px rgb(69, 69, 69);
+  box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%),
+    0 2px 15px 0 rgb(0 0 0 / 5%);
 
   transition: 0.2s;
-  animation: fadeIn 0.4s;
+  animation: fadeIn .4s;
+
 }
 
 .toast:hover {
@@ -24,29 +26,110 @@
   box-shadow: 0px 0px 3px gray;
 }
 
-.success {
-  background-color: #83bd92;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: row;
 }
 
-.warning {
+.container>svg {
+  width: 35px;
+  height: 35px;
+  margin-right: 0.4em;
+}
+
+.message {
+  user-select: none;
+}
+
+.success>.row,
+.warning>.row,
+.error>.row,
+.info>.row {
+  display: block;
+  position: absolute;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 0%;
+  background-color: #83bd92;
+  animation: runRow 3s;
+}
+
+.success,
+.warning,
+.error,
+.info {
+  color: #000;
+}
+
+.warning>.row {
   background-color: #bda883;
 }
 
-.error {
+.error>.row {
   background-color: #bd8383;
 }
 
-.info {
+.info>.row {
   background-color: #8398bd;
 }
 
+.fadeClose {
+  animation: fadeClose .4s forwards;
+}
+
+
+@keyframes fadeClose {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: .7;
+    transform: translateX(-20px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+}
+
 @keyframes fadeIn {
-  from {
+  0% {
     opacity: 0;
     transform: translateX(400px);
   }
 
-  to {
+  50% {
+    opacity: .7;
+    transform: translateX(-20px);
+  }
+
+  75% {
+    opacity: .85;
+    transform: translateX(20px);
+  }
+
+  100% {
     opacity: 1;
+  }
+}
+
+
+
+@keyframes runRow {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
   }
 }
