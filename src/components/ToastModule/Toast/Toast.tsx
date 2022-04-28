@@ -5,7 +5,6 @@ import Icon from "../shared/Icon/Icon";
 import { IToastComponent } from "../types";
 
 import styles from './styles.module.css';
-
 /** 
 // * @typedef {import('../types').IToastComponent} IToastComponent
 */

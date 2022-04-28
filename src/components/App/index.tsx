@@ -41,7 +41,7 @@ export const App: React.FC = () => {
             <label>Auto Close</label>
           </div>
 
-          <select value={mode} onChange={e => {
+          <select value={mode} onChange={(e: React.ChangeEvent<HTMLSelectElement & { value: Mode }>) => {
             setMode(e.target.value)
           }}
           >

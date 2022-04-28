@@ -2,6 +2,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ],
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -9,7 +14,7 @@
     ],
     "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,12 +22,19 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "outDir": "./dist/",
+    "declaration": true,
   },
   "include": [
-    "src"
+    "src/component/ToastModule",
+    "declarations.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
   ],
   "references": [
     {
