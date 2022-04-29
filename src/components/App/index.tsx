@@ -1,15 +1,18 @@
 import React, { useRef, useState } from 'react';
 
 import { ToastPortal } from '../ToastModule';
-import { Mode, propsRef } from '../ToastModule/types';
+import { Mode, Position, propsRef } from '../ToastModule/types';
 
 import styles from './styles.module.css';
 
 export const App: React.FC = () => {
   const [text, setText] = useState<string>('');
   const [mode, setMode] = useState<Mode>('info');
+  const [position, setPosition] = useState<Position>('right');
   const [autoClose, setAutoClose] = useState<boolean>(false);
   const toastRef = useRef<propsRef | null>(null);
+
+  console.log(position);
 
   const onAddToast = (): void => {
     toastRef.current?.addMessage({ mode, message: text });
@@ -51,6 +54,16 @@ export const App: React.FC = () => {
             <option value="error">Error</option>
           </select>
 
+          <select value={position} onChange={(e: React.ChangeEvent<HTMLSelectElement & { value: Position }>) => {
+            setPosition(e.target.value)
+          }}
+          >
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="center">Center</option>
+            <option value="bottom">Bottom</option>
+          </select>
+
           <input
             type="text"
             value={text}
@@ -61,7 +74,7 @@ export const App: React.FC = () => {
           <button >Submit</button>
         </form>
       </div>
-      <ToastPortal ref={toastRef} autoClose={autoClose} autoCloseTime={7000} />
+      <ToastPortal position={position} ref={toastRef} autoClose={autoClose} autoCloseTime={7000} />
     </div>
   );
 };

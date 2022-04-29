@@ -3,11 +3,8 @@ import cn from 'classnames';
 
 import Icon from "../shared/Icon/Icon";
 import { IToastComponent } from "../types";
+import { Container, Row, ToastStyled } from "./styles";
 
-import styles from './styles.module.css';
-/** 
-// * @typedef {import('../types').IToastComponent} IToastComponent
-*/
 
 /**
  * Functional Component for individual Toast
@@ -19,10 +16,10 @@ export const Toast: React.FC<IToastComponent> = ({
   onClose,
   message,
   autoCloseTime,
-  autoClose
+  autoClose,
+  position
 }) => {
   // Memoizing classes array definition to prevent unnecessary re-rendering
-  const classes = useMemo(() => [styles.toast, styles[mode]].join(' '), [mode]);
   const [animation, setAnimation] = useState<boolean>(false);
 
   const animateDurationRunRow = autoClose
@@ -35,6 +32,8 @@ export const Toast: React.FC<IToastComponent> = ({
     setTimeout(() => onClose(id), 400);
   }
 
+
+
   // If autoclose = true, then the class with the closing animation is activated
   useEffect(() => {
     if (autoClose) {
@@ -42,19 +41,22 @@ export const Toast: React.FC<IToastComponent> = ({
         setAnimation(true);
       }, autoCloseTime - 400);
     }
-  }, [classes]);
+  }, [mode]);
+
 
   return (
-    <div className={cn(classes, { [styles.fadeClose]: animation })} onClick={onCloseHandler}>
-      <div className={styles.container}>
+    <ToastStyled
+      onClick={onCloseHandler}
+      className={mode}
+      animation={animation}
+      position={position}
+    >
+      <Container>
         <Icon name={mode} />
-        <div className={styles[`${mode}-img`]} />
-        <div className={styles.message}>
-          {message}
-        </div>
-      </div>
-      <div className={styles.row} style={animateDurationRunRow} />
-    </div>
+        {message}
+      </Container>
+      <Row className='row' style={animateDurationRunRow} autoClose={autoClose} />
+    </ToastStyled>
   )
 };
 

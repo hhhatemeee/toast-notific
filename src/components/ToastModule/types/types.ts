@@ -1,6 +1,8 @@
 // Type for notification style
 export type Mode = 'warning' | 'error' | 'success' | 'info';
 
+export type Position = 'left' | 'center' | 'right' | 'bottom';
+
 /** Interface for the hook UseToastPortal
  * @property {boolean} loaded - Flag indicating whether the div element was mounted
  * @property {string} portalId - unique identifier for the div element 
@@ -29,6 +31,7 @@ export interface IToast {
 export type IToastPortal = {
   autoClose?: boolean;
   autoCloseTime: number;
+  position: Position;
 };
 
 // Interface for the first prop on forwardRef<'this',...>
@@ -47,6 +50,7 @@ export interface IToastComponent extends IToast {
   onClose: (id: string) => void;
   autoClose?: boolean;
   autoCloseTime: number;
+  position: Position;
 };
 
 // Interface for creating a new toast

@@ -29,7 +29,8 @@ import styles from './styles.module.css';
 export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
   {
     autoClose,
-    autoCloseTime = 3000
+    autoCloseTime = 3000,
+    position,
   }: IToastPortal, ref) => {
   /**
    * State for managing all toasts
@@ -37,7 +38,7 @@ export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
    */
   const [toasts, setToasts] = useState<IToast[]>([]);
   // Use the custom hook for get the portalId and loaded 
-  const { loaded, portalId } = useToastPortal();
+  const { loaded, portalId } = useToastPortal(position);
 
   // Use custom hook for checked do you want close the toast 
   useToastAutoClose({ autoClose, autoCloseTime, setToasts, toasts });
@@ -70,6 +71,7 @@ export const ToastPortal = forwardRef<ToastPortalHandle, IToastPortal>((
               onClose={removeToast}
               autoCloseTime={autoCloseTime}
               autoClose={autoClose}
+              position={position}
             />
           ))
         }

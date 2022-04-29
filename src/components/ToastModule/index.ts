@@ -1,8 +1,8 @@
 import { ToastPortal } from './ToastPortal';
 import { Toast } from './Toast';
-// import { App } from '../App';
+import { App } from '../App';
 export {
-  // App,
+  App,
   ToastPortal,
   Toast
 };
